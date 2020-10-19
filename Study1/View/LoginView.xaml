@@ -56,10 +56,11 @@
                                     <ColumnDefinition Width="40"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+                                <TextBlock Text="&#xe6cc;" FontFamily="../Assets/Fonts/#iconfont" FontSize="40" Foreground="Gray" Opacity="0.5" />
                                 <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Focusable="false" 
                                               HorizontalScrollBarVisibility="Hidden" 
                                               VerticalScrollBarVisibility="Hidden"
-                                              VerticalAlignment="Center"/>
+                                              VerticalAlignment="Center"  MinHeight="20" />
                             </Grid>
                             
                         </Border>
