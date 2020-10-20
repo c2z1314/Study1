@@ -30,8 +30,6 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
-
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
@@ -158,7 +156,7 @@
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
         <Style x:Key="ButtonLoginStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="Background" Value="#FF569DE5"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -169,7 +167,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"
-                                CornerRadius="5" >
+                                CornerRadius="5"  >
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -194,6 +192,59 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="VerificationCodeTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                                CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/> <!--图片自适应-->
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="&#xe62b;" FontFamily="../Assets/Fonts/#iconfont" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Column="1" VerticalAlignment="Center"/>
+                                <Image Source="/Assets/LoginImg/Verify.png"  Grid.Column="2" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+
     </Window.Resources>
     <Border Margin="5" Background="White"  CornerRadius="20">
         <!--设置窗体的边框，margin，离边框的距离，相当于往里面缩小一点。-->
@@ -210,7 +261,7 @@
                 <RowDefinition Height="1.8*"></RowDefinition>
                 <!--高度是比例，这里是占（1.8+3）中的1.8份-->
                 <RowDefinition Height="3*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
                 <!--高度固定60-->
             </Grid.RowDefinitions>
             <Border Background="#FF4489C5"  CornerRadius="20,20,0,0"/>
@@ -220,8 +271,7 @@
             <StackPanel VerticalAlignment="Bottom" Margin="0 0 0 25">
                 <!--设置垂直下方对齐，然后再设置底部的间距为30-->
                 <Border Background="White"  VerticalAlignment="Center"  HorizontalAlignment="Center" 
-                        CornerRadius="50"
-                        >
+                        CornerRadius="50" >
                     <!--把整个图片再框起来，如果是透明的png可以加底色之类的，这里要设置CornerRadius圆角，图片的上一级还是呀设置CornerRadius-->
                     <Border Width="100" Height="100" CornerRadius="50">
                         <!--这个Boder控制图片大小，用ImageBrush来设置图片-->
@@ -240,20 +290,22 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition MinHeight="23" Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBox Height="40" FontSize="15" Text="zhangsan"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
                 <PasswordBox Height="40" Grid.Row="1" FontSize="15"   Style="{DynamicResource PasswordBoxStyle}"/>
-                <TextBox Height="40" Grid.Row="2"/>
-                <Button Content="登录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" />
+                <TextBox Height="40" Grid.Row="2" Style="{DynamicResource VerificationCodeTextBoxStyle}"/>
+                <Button Content="登   录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" FontSize="20" Foreground="White" Height="50" />
                 <!--登录按钮-->
-                <TextBlock Text="&#xe6cc;" Foreground="DarkGreen"  Grid.Row="4" FontFamily="../Assets/Fonts/#iconfont"  FontSize="20"/>
+                <TextBlock Text="" Foreground="#FFDD3A3A"  Grid.Row="4" FontFamily="微软雅黑"  FontSize="20"
+                           TextWrapping="Wrap" LineHeight="20"/>
+                <!--TextWrapping让文字自动换行 LineHeight设置行距 后期要绑定文字，有错误信息就显示，没有的话就不显示-->
             </Grid>
 
             <Grid Grid.Row="2" Margin="20 0">
                 <!--OR和三个第三方登录-->
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
                     <!--高度一点-->
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -270,11 +322,26 @@
                     <TextBlock Text="OR" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
                 </Grid>
                 <UniformGrid Columns="5" Grid.Row="2">
-                    <Border Background="Gray"/>
+                    <UniformGrid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Gray"/>
+                            <Setter Property="FontFamily" Value="/Assets/Fonts/#iconfont"/>
+                            <Setter Property="FontSize" Value="30"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#FF4489C5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UniformGrid.Resources>
+                    <TextBlock Text="&#xe746;"/>
                     <Border />
-                    <Border Background="Gray"/>
+                    <TextBlock Text="&#xe932;"/>
                     <Border />
-                    <Border Background="Gray"/>
+                    <TextBlock Text="&#xe660;"/>
                 </UniformGrid>
             </Grid>
         </Grid>
