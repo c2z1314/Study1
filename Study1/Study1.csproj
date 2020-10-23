@@ -67,6 +67,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\CommonBase.cs" />
+    <Compile Include="Common\NotifyBase.cs" />
+    <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -101,11 +105,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Fonts\iconfont.ttf" />
     <Resource Include="Assets\LoginImg\Login.jpg" />

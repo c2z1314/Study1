@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Study1.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,13 @@ namespace Study1.View
         public LoginView()
         {
             InitializeComponent();
+            this.DataContext = new LoginViewModel();
         }
 
+        private void WinMove_LeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                this.DragMove();
+        }
     }
 }

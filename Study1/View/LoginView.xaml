@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study1.View"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Name="WindowLogin"
         Title="系统登录" Height="600" Width="360"
         FontFamily="微软雅黑" FontWeight="ExtraLight"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
@@ -264,8 +264,12 @@
                 <RowDefinition Height="120"></RowDefinition>
                 <!--高度固定60-->
             </Grid.RowDefinitions>
-            <Border Background="#FF4489C5"  CornerRadius="20,20,0,0"/>
-            <Button VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="30" Template="{StaticResource CloseButtonTemplate}" />
+            <Border Background="#FF4489C5"  CornerRadius="20,20,0,0" MouseLeftButtonDown="WinMove_LeftButtonDown"/>
+            <Button VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="30" Template="{StaticResource CloseButtonTemplate}"
+                    Command="{Binding CloseWindowCommand}" 
+                    CommandParameter="{Binding ElementName=WindowLogin}"/>
+            <!--绑定ViewModel中声明的类名 CloseWindowCommand -->
+            <!--把窗体的参数传进去 WindowLogin，第七行有定义窗体的名称-->
             <!--Button直接使用之前定义的Window.Resources中的模板，可以多次使用 -->
 
             <StackPanel VerticalAlignment="Bottom" Margin="0 0 0 25">
