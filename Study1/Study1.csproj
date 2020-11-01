@@ -70,6 +70,7 @@
     <Compile Include="Common\CommonBase.cs" />
     <Compile Include="Common\NotifyBase.cs" />
     <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="Common\PasswordHelp.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>

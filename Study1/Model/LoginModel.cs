@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Study1.Model
 {
-    public class LoginModel: NotifyBase
+    public class LoginModel: NotifyBase //需要继承Common类，用来通知。
     {
         private string _userName;
-        public string UserName
+        public string UserName //用户名的实体层 
         {
             get { return _userName; }
             set {
@@ -19,7 +19,7 @@ namespace Study1.Model
         }
 
         private string _password;
-        public string Password
+        public string Password //密码的实体层
         {
             get { return _password; }
             set
@@ -30,7 +30,7 @@ namespace Study1.Model
         }
 
         private string _verificationCode;
-        public string VerificationCode
+        public string VerificationCode //验证码的实体层
         {
             get { return _verificationCode; } 
             set

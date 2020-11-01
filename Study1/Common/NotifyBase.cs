@@ -18,6 +18,6 @@ namespace Study1.Common
         public void DoNotify([CallerMemberName] string propName="")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
+        } 
     }
 }

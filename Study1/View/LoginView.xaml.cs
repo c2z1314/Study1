@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Study1.Common;
 
 namespace Study1.View
 {
@@ -23,7 +24,7 @@ namespace Study1.View
         public LoginView()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel();
+            this.DataContext = new LoginViewModel(); //把窗口关闭的方法关联到界面
         }
 
         private void WinMove_LeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -31,5 +32,6 @@ namespace Study1.View
             if (e.LeftButton == MouseButtonState.Pressed)
                 this.DragMove();
         }
+
     }
 }

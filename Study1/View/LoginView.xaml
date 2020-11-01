@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Study1.View"
+        xmlns:commn="clr-namespace:Study1.Common"
         mc:Ignorable="d" Name="WindowLogin"
         Title="系统登录" Height="600" Width="360"
         FontFamily="微软雅黑" FontWeight="ExtraLight"
@@ -30,20 +31,27 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+        <ControlTemplate TargetType="TextBox" x:Key="UserNameTextBoxTemplate">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                                CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="&#xe6cc;" FontFamily="../Assets/Fonts/#iconfont" FontSize="30" Foreground="Gray" Opacity="0.5" VerticalAlignment="Center"  HorizontalAlignment="Center" />
+                    <ScrollViewer Grid.Column="1" x:Name="PART_ContentHost" Focusable="false" 
+                                              HorizontalScrollBarVisibility="Hidden" 
+                                              VerticalScrollBarVisibility="Hidden"
+                                              VerticalAlignment="Center"  MinHeight="20" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
         <Style x:Key="UserNameTextBoxStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
@@ -212,7 +220,8 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40"/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/> <!--图片自适应-->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!--图片自适应-->
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="&#xe62b;" FontFamily="../Assets/Fonts/#iconfont" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Column="1" VerticalAlignment="Center"/>
@@ -296,9 +305,11 @@
                     <RowDefinition/>
                     <RowDefinition MinHeight="23" Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBox Height="40" FontSize="15" Text="zhangsan"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
-                <PasswordBox Height="40" Grid.Row="1" FontSize="15"   Style="{DynamicResource PasswordBoxStyle}"/>
-                <TextBox Height="40" Grid.Row="2" Style="{DynamicResource VerificationCodeTextBoxStyle}"/>
+                <TextBox Height="40" FontSize="15" Text="{Binding LoginMode.UserName}"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
+                <PasswordBox Height="40" Grid.Row="1" FontSize="15"   Style="{DynamicResource PasswordBoxStyle}" 
+                             commn:PasswordHelp.Attach="False"
+                             commn:PasswordHelp.Password="{Binding  LoginMode.Password}"/> <!--在loginmodel中可以看到对应的实体层-->
+                <TextBox Height="40" Text="{Binding LoginMode.VerificationCode}" Grid.Row="2" Style="{DynamicResource VerificationCodeTextBoxStyle}"/>
                 <Button Content="登   录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" FontSize="20" Foreground="White" Height="50" />
                 <!--登录按钮-->
                 <TextBlock Text="" Foreground="#FFDD3A3A"  Grid.Row="4" FontFamily="微软雅黑"  FontSize="20"
