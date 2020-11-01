@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,7 +69,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\CommonBase.cs" />
+    <Compile Include="Common\GlobalValues.cs" />
+    <Compile Include="Common\MD5Provider.cs" />
     <Compile Include="Common\NotifyBase.cs" />
+    <Compile Include="DataAccess\DataEntity\UserEntity.cs" />
+    <Compile Include="DataAccess\LocalDataAccess.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Common\PasswordHelp.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

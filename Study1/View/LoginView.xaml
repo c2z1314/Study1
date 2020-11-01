@@ -308,7 +308,7 @@
                 <TextBox Height="40" FontSize="15" Text="{Binding LoginModel.UserName}"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
                 <PasswordBox Height="40" Grid.Row="1" FontSize="15"   Style="{DynamicResource PasswordBoxStyle}" 
                              commn:PasswordHelp.Attach="True"
-                             commn:PasswordHelp.Password="{Binding  LoginMode.Password}"/> <!--在loginmodel中可以看到对应的实体层-->
+                             commn:PasswordHelp.Password="{Binding  LoginMode.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/> <!--在loginmodel中可以看到对应的实体层-->
                 <TextBox Height="40" Text="{Binding LoginMode.VerificationCode}" Grid.Row="2" Style="{DynamicResource VerificationCodeTextBoxStyle}"/>
                 <Button Content="登   录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" FontSize="20" Foreground="White" Height="50" 
                         Command="{Binding LoginCommond}"/>

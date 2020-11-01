@@ -1,4 +1,5 @@
 ﻿using Study1.Common;
+using Study1.DataAccess;
 using Study1.Model;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ using System.Windows;
 
 namespace Study1.ViewModel
 {
-    public class LoginViewModel :NotifyBase
+    public class LoginViewModel : NotifyBase
     {
         public LoginModel LoginModel { get; set; } = new LoginModel();
         public CommonBase CloseWindowCommand { get; set; }
         public CommonBase LoginCommond { get; set; }
         private string _errMessage;
-        public string  ErroMessage
+        public string ErroMessage
         {
             get { return _errMessage; }
             set { _errMessage = value; this.DoNotify(); }
@@ -42,7 +43,9 @@ namespace Study1.ViewModel
             this.LoginCommond.DoCanExcute = new Func<object, bool>((o) => { return true; });
         }
         private void DoLogin(object o)
-        {//有专门表单验证的库，比较少，所以用这种方式判断。
+        {
+            
+            //有专门表单验证的库，比较少，所以用这种方式判断。
             if (string.IsNullOrEmpty(LoginModel.UserName))
             {
                 this.ErroMessage = "请输入用户名！";
@@ -66,6 +69,28 @@ namespace Study1.ViewModel
                 this.ErroMessage = "验证码错误！";
                 return;
             }
+
+            Task.Run(new Action(() =>  //开一个线程
+            {
+                try
+                {
+
+
+                    var user = LocalDataAccess.GetInstance().CheckUserInfo(LoginModel.UserName, LoginModel.Password);
+                    if (user == null)
+                    {
+                        throw new Exception("登录失败，用户名或者密码错误");
+                    }
+
+                    GlobalValues.UserInfo = user;
+
+
+                }
+                catch (Exception ee)
+                {
+                    this.ErroMessage = ee.Message;
+                }
+            }));
 
 
         }
