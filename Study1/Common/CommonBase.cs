@@ -9,6 +9,7 @@ namespace Study1.Common
 {
     public class CommonBase : ICommand /*引用接口，来操控界面（个人理解）*/
     {
+
         public event EventHandler CanExecuteChanged; /*事件*/
 
         public bool CanExecute(object parameter) /*判断是否可执行，逻辑判断*/

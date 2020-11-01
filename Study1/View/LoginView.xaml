@@ -305,15 +305,16 @@
                     <RowDefinition/>
                     <RowDefinition MinHeight="23" Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBox Height="40" FontSize="15" Text="{Binding LoginMode.UserName}"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
+                <TextBox Height="40" FontSize="15" Text="{Binding LoginModel.UserName}"  Foreground="#555" Style="{DynamicResource UserNameTextBoxStyle}"/>
                 <PasswordBox Height="40" Grid.Row="1" FontSize="15"   Style="{DynamicResource PasswordBoxStyle}" 
-                             commn:PasswordHelp.Attach="False"
+                             commn:PasswordHelp.Attach="True"
                              commn:PasswordHelp.Password="{Binding  LoginMode.Password}"/> <!--在loginmodel中可以看到对应的实体层-->
                 <TextBox Height="40" Text="{Binding LoginMode.VerificationCode}" Grid.Row="2" Style="{DynamicResource VerificationCodeTextBoxStyle}"/>
-                <Button Content="登   录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" FontSize="20" Foreground="White" Height="50" />
+                <Button Content="登   录" Grid.Row=" 3" Style="{DynamicResource ButtonLoginStyle}" FontSize="20" Foreground="White" Height="50" 
+                        Command="{Binding LoginCommond}"/>
                 <!--登录按钮-->
-                <TextBlock Text="" Foreground="#FFDD3A3A"  Grid.Row="4" FontFamily="微软雅黑"  FontSize="20"
-                           TextWrapping="Wrap" LineHeight="20"/>
+                <TextBlock Text="{Binding ErroMessage}" Foreground="#FFDD3A3A"  Grid.Row="4" FontFamily="微软雅黑"  FontSize="15"
+                           TextWrapping="Wrap" LineHeight="20" HorizontalAlignment="Center"/>
                 <!--TextWrapping让文字自动换行 LineHeight设置行距 后期要绑定文字，有错误信息就显示，没有的话就不显示-->
             </Grid>
 
